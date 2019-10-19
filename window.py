@@ -6,13 +6,13 @@ from pygame.locals import DOUBLEBUF, OPENGL
 from OpenGL.GL import glTranslatef, glClear, GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT
 from OpenGL.GLU import gluPerspective
 
-from const import WINDOW_TITLE, WINDOW_WIDTH, WINDOW_HEIGHT
+from const import NAME, WINDOW_WIDTH, WINDOW_HEIGHT
 
 def init_window():
     """ Initialise the application window """
     pygame.init()
     surface = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), DOUBLEBUF | OPENGL)
-    pygame.display.set_caption(WINDOW_TITLE)
+    pygame.display.set_caption(NAME)
     glTranslatef(0, 0, -5)
     gluPerspective(60, (WINDOW_WIDTH / WINDOW_HEIGHT), 0.1, 1000)
     return (surface)
@@ -26,7 +26,7 @@ def _check_quit(event):
     return (True)
 
 def event_loop_window(surface):
-    """ Ctaches events """
+    """ Catches events """
     running = True
     while running:
         for event in pygame.event.get():
