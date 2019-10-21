@@ -3,7 +3,7 @@
 
 from re import search, sub
 
-from const import MIN_HEIGHT, MAX_HEIGHT, MAX_SIZE
+from const import GIRD_PADDING, MIN_HEIGHT, MAX_HEIGHT, MAX_SIZE
 
 def _validate_line(line, row, terrain):
     """ Validates a single lines format """
@@ -52,10 +52,9 @@ def _validate_map_file(terrain):
         elif (terrain.error != ""):
             return (terrain.error)
         row += 1
-
     if (len(terrain.points) == 0):
         return ("File is empty")
-    return (terrain.error);
+    return (terrain.error)
 
 def read_map_file(terrain):
     """ Reads file into terrain format """
@@ -63,18 +62,23 @@ def read_map_file(terrain):
     if (terrain.error != ""):
         return (terrain.error)
 
+    total_size = MAX_SIZE + (GIRD_PADDING * 2)
     for line in terrain.points:
-        row = []
+        row = [0] * GIRD_PADDING # fill front with zero padding
         i = len(line)
         for point in line:
             row.append(int(point))
-        while (i < MAX_SIZE):
+        while (i < total_size - GIRD_PADDING): # fill remaining points with zero padding
             row.append(0)
-            i +=1
+            i += 1
         terrain.grid.append(row)
 
     i = len(terrain.points)
-    while (i < MAX_SIZE):
-        terrain.grid.append([0] * MAX_SIZE)
+    while (i < total_size - GIRD_PADDING): # fill remaining with zero padding
+        terrain.grid.append([0] * total_size)
         i += 1
+    while (i < total_size): # fill front with zero padding
+        terrain.grid.insert(0, [0] * total_size)
+        i += 1
+    terrain.grid.reverse()
     return ("")

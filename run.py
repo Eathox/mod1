@@ -12,7 +12,7 @@ from window import init_window, event_loop_window
 if __name__ == "__main__":
     if (len(argv) != 2):
         print ("python", argv[0], USAGE)
-        exit_application()
+        exit(0)
 
     terrain = Terrain(argv[1])
     terrain.error = read_map_file(terrain)
@@ -21,6 +21,6 @@ if __name__ == "__main__":
         exit(0)
 
     surface = init_window()
-    event_loop_window(surface)
+    event_loop_window(terrain)
     pygame.quit()
     quit()
