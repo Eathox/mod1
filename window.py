@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 """ Window Management """
 
+from time import time
+
 import pygame
 from pygame.locals import DOUBLEBUF, OPENGL
 from OpenGL.GL import GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_DEPTH_TEST, \
@@ -18,7 +20,7 @@ def init_window():
     pygame.init()
     resolution = (WINDOW_WIDTH, WINDOW_HEIGHT)
     surface = pygame.display.set_mode(resolution, DOUBLEBUF | OPENGL)
-    pygame.display.set_caption(NAME)
+    pygame.display.set_caption("{0} - FPS: Unkown".format(NAME))
     glEnable(GL_DEPTH_TEST)
     glDepthFunc(GL_LEQUAL)
     gluPerspective(FOV, (resolution[0] / resolution[1]), 0.1, 1000)
@@ -35,9 +37,18 @@ def _check_quit(event):
         return (False)
     return (True)
 
+def _get_fps(start_time, cur_time, frames):
+    fps = frames // cur_time
+    frames = 0
+    cur_time = 0
+    start_time = 0
+    return (fps)
+
 def event_loop_window(terrain):
     """ Catches events """
     running = True
+    frames = 0
+    start_time = time()
     while running:
         for event in pygame.event.get():
             running = _check_quit(event)
@@ -47,4 +58,10 @@ def event_loop_window(terrain):
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
         draw_terrain(terrain)
+
+        frames += 1
+        cur_time = time() - start_time
+        if (cur_time > 1):
+            fps = _get_fps(start_time, cur_time, frames)
+            pygame.display.set_caption("{0} - FPS: {1}".format(NAME, str(fps)))
         pygame.display.flip()
