@@ -10,6 +10,7 @@ from const import USAGE, Terrain
 from window import init_window, event_loop_window
 
 if __name__ == "__main__":
+    """ Read terrain and run simulation """
     if (len(argv) != 2):
         print ("python", argv[0], USAGE)
         exit(0)
@@ -20,7 +21,7 @@ if __name__ == "__main__":
         print ("Error: " + terrain.error)
         exit(0)
 
-    surface = init_window()
+    init_window(terrain)
     event_loop_window(terrain)
     pygame.quit()
     quit()

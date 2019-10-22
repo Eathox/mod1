@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Window Management """
+""" 2d Terrain rendering (Legacy code) """
 
 from OpenGL.GL import GL_LINES, GL_TRIANGLES, glBegin, glEnd
 
@@ -11,19 +11,19 @@ def _draw_edge(terrain, row, rowCount):
     point = 0
     rowLength = len(terrain.grid[row])
     while (point < rowLength):
-        if (point + 1 < rowLength): # Right Line
+        if (point + 1 < rowLength):
             top_left = (point, row, terrain.grid[row][point])
             top_right = (point + 1, row, terrain.grid[row][point + 1])
             draw_color(top_left)
             draw_color(top_right)
 
-        if (row + 1 < rowCount): # Down Line
+        if (row + 1 < rowCount):
             top_left = (point, row, terrain.grid[row][point])
             bottom_left = (point, row + 1, terrain.grid[row + 1][point])
             draw_color(top_left)
             draw_color(bottom_left)
 
-        if (point + 1 < rowLength and row + 1 < rowCount): # Cross Lines
+        if (point + 1 < rowLength and row + 1 < rowCount):
             bottom_right = (point + 1, row + 1, terrain.grid[row + 1][point + 1])
 
             middle_height = (top_left[2] + top_right[2] + bottom_left[2] + bottom_right[2]) / 4
@@ -76,11 +76,11 @@ def _draw_surface(terrain, row, rowCount):
         point += 1
     glEnd()
 
-def draw_terrain(terrain):
-    """ Render terrain """
+def draw_terrain_2d(terrain):
+    """ Render 2d terrain """
     row = 0
     rowCount = len(terrain.grid)
     while (row < rowCount):
-        # _draw_edge(terrain, row, rowCount)
-        _draw_surface(terrain, row, rowCount)
+        _draw_edge(terrain, row, rowCount)
+        # _draw_surface(terrain, row, rowCount)
         row += 1

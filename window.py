@@ -4,30 +4,33 @@
 from time import time
 
 import pygame
-from pygame.locals import DOUBLEBUF, OPENGL
+from pygame.locals import DOUBLEBUF, OPENGL, RESIZABLE
 from OpenGL.GL import GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_DEPTH_TEST, \
-    GL_LEQUAL, glTranslatef, glRotatef, glEnable, glDepthFunc, glClearColor, \
-    glClear
+    GL_LEQUAL, GL_BLEND, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, glTranslatef, \
+    glRotatef, glEnable, glBlendFunc, glDepthFunc, glClearColor, glClear
 from OpenGL.GLU import gluPerspective
 
 from const import NAME, FOV, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR, \
-    MAX_SIZE, GIRD_PADDING
+    MAX_SIZE, GRID_PADDING, MARCHING_CUBE_TERRAIN_ISO_LEVEL, \
+    MARCHING_CUBE_WATTER_ISO_LEVEL
 from color import hex_to_float
-from draw_terrain import draw_terrain
+from draw_vertex import draw_vertex_terrain, draw_vertex_water
+from draw_3d import draw_3d
 
-def init_window():
+def init_window(terrain):
     """ Initialise the application window """
     pygame.init()
     resolution = (WINDOW_WIDTH, WINDOW_HEIGHT)
-    surface = pygame.display.set_mode(resolution, DOUBLEBUF | OPENGL)
-    pygame.display.set_caption("{0} - FPS: Unkown".format(NAME))
-    glEnable(GL_DEPTH_TEST)
-    glDepthFunc(GL_LEQUAL)
+    pygame.display.set_mode(resolution, DOUBLEBUF | OPENGL)
+    pygame.display.set_caption("{0} - FPS: Unknown".format(NAME))
     gluPerspective(FOV, (resolution[0] / resolution[1]), 0.1, 1000)
-    cam_offset = (MAX_SIZE + GIRD_PADDING) / 2
-    glTranslatef(-cam_offset, -cam_offset, -10)
+    glTranslatef(-(terrain.size / 2), -(terrain.height_3d / 2), -10)
     glRotatef(45, -90, 0, 0)
-    return (surface)
+    glEnable(GL_DEPTH_TEST)
+    glEnable(GL_BLEND)
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
+    color = hex_to_float(BACKGROUND_COLOR)
+    glClearColor(color[0], color[1], color[2], 1)
 
 def _check_quit(event):
     """ Check if the event should quit """
@@ -53,11 +56,9 @@ def event_loop_window(terrain):
         for event in pygame.event.get():
             running = _check_quit(event)
 
-        color = hex_to_float(BACKGROUND_COLOR)
-        glClearColor(color[0], color[1], color[2], 255)
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-
-        draw_terrain(terrain)
+        draw_3d(terrain, terrain.grid_3d, draw_vertex_terrain, MARCHING_CUBE_TERRAIN_ISO_LEVEL)
+        draw_3d(terrain, terrain.water_3d, draw_vertex_water, MARCHING_CUBE_WATTER_ISO_LEVEL)
 
         frames += 1
         cur_time = time() - start_time

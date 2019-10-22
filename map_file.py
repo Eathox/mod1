@@ -3,7 +3,9 @@
 
 from re import search, sub
 
-from const import GIRD_PADDING, MIN_HEIGHT, MAX_HEIGHT, MAX_SIZE
+from numpy import zeros
+
+from const import GRID_PADDING, MIN_HEIGHT, MAX_HEIGHT, MAX_SIZE
 
 def _validate_line(line, row, terrain):
     """ Validates a single lines format """
@@ -56,29 +58,35 @@ def _validate_map_file(terrain):
         return ("File is empty")
     return (terrain.error)
 
+def _grid_to_3d(terrain):
+    layer = 0
+    min_height = abs(MIN_HEIGHT)
+    while (layer < terrain.height_3d):
+        row = 0
+        while (row < terrain.size):
+            point = 0
+            while (point < terrain.size):
+                if (terrain.grid[row][point] >= (layer - min_height)):
+                    terrain.grid_3d[layer][row][point] = 1
+                else:
+                    terrain.grid_3d[layer][row][point] = 0
+                point += 1
+            row += 1
+        layer += 1
+
 def read_map_file(terrain):
     """ Reads file into terrain format """
     terrain.error = _validate_map_file(terrain)
     if (terrain.error != ""):
         return (terrain.error)
 
-    total_size = MAX_SIZE + (GIRD_PADDING * 2)
+    row = GRID_PADDING
     for line in terrain.points:
-        row = [0] * GIRD_PADDING # fill front with zero padding
-        i = len(line)
+        i = GRID_PADDING
         for point in line:
-            row.append(int(point))
-        while (i < total_size - GIRD_PADDING): # fill remaining points with zero padding
-            row.append(0)
+            terrain.grid[row][i] = point
             i += 1
-        terrain.grid.append(row)
-
-    i = len(terrain.points)
-    while (i < total_size - GIRD_PADDING): # fill remaining with zero padding
-        terrain.grid.append([0] * total_size)
-        i += 1
-    while (i < total_size): # fill front with zero padding
-        terrain.grid.insert(0, [0] * total_size)
-        i += 1
-    terrain.grid.reverse()
+        row += 1
+    terrain.grid = terrain.grid[::-1]
+    _grid_to_3d(terrain)
     return ("")
