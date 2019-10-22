@@ -4,7 +4,7 @@
 from os import system
 from sys import argv, platform
 
-libraries = [
+g_libraries = [
     "numpy",
     "pygame",
     "pyopengl"
@@ -37,7 +37,7 @@ def _uninstall_library(libray):
 def _install_libaries():
     """ Installs all libaries """
     installed = []
-    for libray in libraries:
+    for libray in g_libraries:
         if (_check_library_installed(libray) == False):
             print ("Installing " + libray)
             installed.append(libray)
@@ -55,7 +55,7 @@ def _install_libaries():
 def _uninstall_libaries():
     """ Uninstalls all libaries """
     uninstalled = []
-    for libray in libraries:
+    for libray in g_libraries:
         if (_check_library_installed(libray) == True):
             uninstalled.append(libray)
             success = _uninstall_library(libray)
