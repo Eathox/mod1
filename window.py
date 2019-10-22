@@ -14,7 +14,7 @@ from const import NAME, FOV, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR, \
     MAX_SIZE, GRID_PADDING, WATER_ADD_RATE, MARCHING_CUBE_TERRAIN_ISO_LEVEL, \
     MARCHING_CUBE_WATTER_ISO_LEVEL
 from color import hex_to_float
-from water_modes import water_reset, water_fill
+from water_modes import water_reset, water_rise
 from draw_3d import draw_terrain_3d, draw_water_3d
 
 def init_window(terrain):
@@ -47,7 +47,7 @@ def _water_control(terrain, water_mode_func, event):
     if (event.key == pygame.K_SPACE):
         return (water_reset)
     elif (event.key == pygame.K_1):
-        return (water_fill)
+        return (water_rise)
     return (water_mode_func)
 
 def event_loop_window(terrain):
