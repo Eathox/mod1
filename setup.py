@@ -58,7 +58,7 @@ def _uninstall_libaries():
     for libray in g_libraries:
         if (_check_library_installed(libray) == True):
             uninstalled.append(libray)
-            success = _uninstall_library(libray)
+            _uninstall_library(libray)
     if (uninstalled == []):
         print("All dependencies allready uninstalled")
     else:

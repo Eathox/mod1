@@ -5,7 +5,8 @@ from OpenGL.GL import GL_LINES, GL_TRIANGLES, glBegin, glEnd
 
 from const import MARCHING_CUBE_EDGE_TABLE, MARCHING_CUBE_TRIANGLE_TABLE, \
     MARCHING_CUBE_INDEX_START_TABLE, MARCHING_CUBE_INDEX_END_TABLE, \
-    MIN_HEIGHT, Terrain
+    MIN_HEIGHT, MARCHING_CUBE_TERRAIN_ISO_LEVEL, MARCHING_CUBE_WATTER_ISO_LEVEL
+from draw_vertex import draw_vertex_terrain, draw_vertex_water
 
 def _get_corner(point, row, layer):
     """ Gets the cube vertices """
@@ -46,7 +47,7 @@ def _get_active_corners(grid, iso_level, corners):
         active_corners |= 128
     return (active_corners)
 
-def _interpolate(grid, iso_level, start, end):
+def _interpolate(grid, start, end, iso_level):
     """ Interpolate between start and end """
     start_density = _density_from_vertex(grid, start)
     end_density = _density_from_vertex(grid, end)
@@ -57,23 +58,23 @@ def _interpolate(grid, iso_level, start, end):
         (start[2] + (t * (end[2] - start[2]))) - abs(MIN_HEIGHT)
     )
 
-def _draw_cube(grid, iso_level, draw_vertex_func, point, row, layer):
+def _draw_cube(grid, point, row, layer, draw_vertex_func, iso_level):
     """ Draw individual cube """
     corners = _get_corner(point, row, layer)
     active_corners = _get_active_corners(grid, iso_level, corners)
 
     i = 0
-    cord = MARCHING_CUBE_TRIANGLE_TABLE[active_corners][i]
-    while (cord != -1):
+    table_length = len(MARCHING_CUBE_TRIANGLE_TABLE[active_corners])
+    while (i < table_length):
+        cord = MARCHING_CUBE_TRIANGLE_TABLE[active_corners][i]
         start = MARCHING_CUBE_INDEX_START_TABLE[cord]
         end = MARCHING_CUBE_INDEX_END_TABLE[cord]
-        vertex = _interpolate(grid, iso_level, corners[start], corners[end])
+        vertex = _interpolate(grid, corners[start], corners[end], iso_level)
         draw_vertex_func(vertex)
-        cord = MARCHING_CUBE_TRIANGLE_TABLE[active_corners][i + 1]
         i += 1
 
-def draw_3d(terrain, grid, draw_vertex_func, iso_level):
-    """ Draw terrain's density grid """
+def draw_terrain_3d(terrain):
+    """ Draw terrain density grid """
     glBegin(GL_TRIANGLES)
     layer = 0
     while (layer < terrain.height_3d - 1):
@@ -81,7 +82,23 @@ def draw_3d(terrain, grid, draw_vertex_func, iso_level):
         while (point < terrain.size - 1):
             row = 0
             while (row < terrain.size - 1):
-                _draw_cube(grid, iso_level, draw_vertex_func, point, row, layer)
+                _draw_cube(terrain.grid_3d, point, row, layer, draw_vertex_terrain, MARCHING_CUBE_TERRAIN_ISO_LEVEL)
+                row += 1
+            point += 1
+        layer += 1
+    glEnd()
+
+def draw_water_3d(terrain):
+    """ Draw water density grid """
+    glBegin(GL_TRIANGLES)
+    terrain.water_3d[terrain.height_3d - 1].fill(0)
+    layer = 0
+    while (layer < terrain.height_3d - 1):
+        point = 0
+        while (point < terrain.size - 1):
+            row = 0
+            while (row < terrain.size - 1):
+                _draw_cube(terrain.water_3d, point, row, layer, draw_vertex_water, MARCHING_CUBE_WATTER_ISO_LEVEL)
                 row += 1
             point += 1
         layer += 1
