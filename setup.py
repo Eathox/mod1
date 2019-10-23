@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 """ Install all library dependencies constants """
 
-from os import system
+from subprocess import run, PIPE
 from sys import argv, platform
 
+g_pip = "pip3"
 g_libraries = [
     "numpy",
     "pygame",
@@ -12,26 +13,26 @@ g_libraries = [
 
 def _check_pip3():
     """ Checks if pip3 is installed """
-    command = "pip3 -V 1>/dev/null 2>/dev/null"
-    installed = system(command)
+    arguments = ["-V"]
+    installed = run([g_pip] + arguments, stdout=PIPE).returncode
     return (installed == 0)
 
 def _check_library_installed(libray):
     """ Checks if the library is installed """
-    command = "pip3 show " + libray + " 1>/dev/null 2>/dev/null"
-    installed = system(command)
+    arguments = ["show", libray]
+    installed = run([g_pip] + arguments, stdout=PIPE).returncode
     return (installed == 0)
 
 def _install_library(libray):
     """ Installs library """
-    command = "pip3 install " + libray
-    installed = system(command)
+    arguments = ["install", libray]
+    installed = run([g_pip] + arguments).returncode
     return (installed == 0)
 
 def _uninstall_library(libray):
     """ Uninstalls library """
-    command = "pip3 uninstall " + libray
-    installed = system(command)
+    arguments = ["uninstall", libray]
+    installed = run([g_pip] + arguments).returncode
     return (installed == 0)
 
 def _install_libaries():
@@ -50,7 +51,7 @@ def _install_libaries():
     else:
         print ("\nSuccessfully installed:")
         for libray in installed:
-            print ("  " + libray)
+            print (" + " + libray)
 
 def _uninstall_libaries():
     """ Uninstalls all libaries """
@@ -64,7 +65,7 @@ def _uninstall_libaries():
     else:
         print ("\nSuccessfully uninstalled:")
         for libray in uninstalled:
-            print ("  " + libray)
+            print (" - " + libray)
 
 if __name__ == "__main__":
     """ Setup dependencies """
