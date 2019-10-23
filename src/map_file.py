@@ -5,7 +5,7 @@ from re import search, sub
 
 from numpy import zeros
 
-from const import GRID_PADDING, MIN_HEIGHT, MAX_HEIGHT, MAX_SIZE
+from . const import GRID_PADDING, MIN_HEIGHT, MAX_HEIGHT, MAX_SIZE
 
 def _validate_line(line, row, terrain):
     """ Validates a single lines format """

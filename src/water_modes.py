@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """ Water simulation modes """
 
-from const import WATER_ADD_VOLUME, WATER_ADD_RATE
+from . const import WATER_ADD_VOLUME, WATER_ADD_RATE
 
 def water_reset(terrain, time_passed):
     terrain.water_3d.fill(0)

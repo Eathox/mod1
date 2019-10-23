@@ -3,7 +3,7 @@
 
 from OpenGL.GL import GL_LINES, GL_TRIANGLES, glBegin, glEnd
 
-from draw import draw_color
+from . draw import draw_color
 
 def _draw_edge(terrain, row, rowCount):
     """ Draws edge wire frame """

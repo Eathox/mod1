@@ -10,12 +10,12 @@ from OpenGL.GL import GL_COLOR_BUFFER_BIT, GL_DEPTH_BUFFER_BIT, GL_DEPTH_TEST, \
     glEnable, glBlendFunc, glClearColor, glClear
 from OpenGL.GLU import gluPerspective
 
-from const import NAME, FOV, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR, \
+from . const import NAME, FOV, WINDOW_WIDTH, WINDOW_HEIGHT, BACKGROUND_COLOR, \
     MAX_SIZE, GRID_PADDING, WATER_ADD_RATE, MARCHING_CUBE_TERRAIN_ISO_LEVEL, \
     MARCHING_CUBE_WATTER_ISO_LEVEL
-from color import hex_to_float
-from water_modes import water_reset, water_hold, water_rise
-from draw_3d import draw_terrain_3d, draw_water_3d
+from . color import hex_to_float
+from . water_modes import water_reset, water_hold, water_rise
+from . draw_3d import draw_terrain_3d, draw_water_3d
 
 def init_window(terrain):
     """ Initialise the application window """

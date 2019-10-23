@@ -3,10 +3,11 @@
 
 from OpenGL.GL import GL_LINES, GL_TRIANGLES, glBegin, glEnd, glVertex3f, \
     glColor3fv, glColor4fv
-from const import MIN_HEIGHT, MAX_HEIGHT, DRAW_HEIGHT_WEIGHT, WATER_COLOR, \
+
+from . const import MIN_HEIGHT, MAX_HEIGHT, DRAW_HEIGHT_WEIGHT, WATER_COLOR, \
     TERRAIN_COLOR_HIGH, TERRAIN_COLOR_MID, TERRAIN_COLOR_LOW, \
     DRAW_COLOR_INTENSITY_WEIGHT
-from color import hex_to_float
+from . color import hex_to_float
 
 def draw_vertex_terrain(vertex):
     """ Draws point with terrain height color """

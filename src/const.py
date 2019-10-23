@@ -35,6 +35,7 @@ class Terrain:
     grid = zeros((size, size))
     grid_3d = zeros((height_3d, size, size))
     water_3d = zeros((height_3d, size, size))
+
     def __init__(self, file_path):
         self.loc = file_path
         self.file = Path(file_path)

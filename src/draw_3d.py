@@ -3,10 +3,10 @@
 
 from OpenGL.GL import GL_LINES, GL_TRIANGLES, glBegin, glEnd
 
-from const import MARCHING_CUBE_EDGE_TABLE, MARCHING_CUBE_TRIANGLE_TABLE, \
+from . const import MARCHING_CUBE_EDGE_TABLE, MARCHING_CUBE_TRIANGLE_TABLE, \
     MARCHING_CUBE_INDEX_START_TABLE, MARCHING_CUBE_INDEX_END_TABLE, \
     MIN_HEIGHT, MARCHING_CUBE_TERRAIN_ISO_LEVEL, MARCHING_CUBE_WATTER_ISO_LEVEL
-from draw_vertex import draw_vertex_terrain, draw_vertex_water
+from . draw_vertex import draw_vertex_terrain, draw_vertex_water
 
 def _get_corner(point, row, layer):
     """ Gets the cube vertices """
@@ -78,13 +78,13 @@ def draw_terrain_3d(terrain):
     glBegin(GL_TRIANGLES)
     layer = 0
     while (layer < terrain.height_3d - 1):
-        point = 0
-        while (point < terrain.size - 1):
-            row = 0
-            while (row < terrain.size - 1):
+        row = 0
+        while (row < terrain.size - 1):
+            point = 0
+            while (point < terrain.size - 1):
                 _draw_cube(terrain.grid_3d, point, row, layer, draw_vertex_terrain, MARCHING_CUBE_TERRAIN_ISO_LEVEL)
-                row += 1
-            point += 1
+                point += 1
+            row += 1
         layer += 1
     glEnd()
 
@@ -94,12 +94,12 @@ def draw_water_3d(terrain):
     terrain.water_3d[terrain.height_3d - 1].fill(0)
     layer = 0
     while (layer < terrain.height_3d - 1):
-        point = 0
-        while (point < terrain.size - 1):
-            row = 0
-            while (row < terrain.size - 1):
+        row = 0
+        while (row < terrain.size - 1):
+            point = 0
+            while (point < terrain.size - 1):
                 _draw_cube(terrain.water_3d, point, row, layer, draw_vertex_water, MARCHING_CUBE_WATTER_ISO_LEVEL)
-                row += 1
-            point += 1
+                point += 1
+            row += 1
         layer += 1
     glEnd()
