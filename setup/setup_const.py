@@ -21,7 +21,7 @@ class Setup:
     def _library_installed_shell(self, library):
         """ Checks if the library is installed using shell """
         arguments = ["show", library]
-        return (self.run_pip(arguments, True))
+        return (self._run_pip(arguments, True))
 
     def _set_installed(self):
         """ Set internal installed array """
@@ -30,10 +30,10 @@ class Setup:
             if (self._library_installed_shell(library) == True):
                 self.installed.append(library)
 
-    def run_pip(self, arguments, silent=False):
+    def _run_pip(self, arguments, silent=False):
         """ Runs pip with arguments and returns success """
         if (silent == True):
-            success = run([self.pip] + arguments, stdout=PIPE).returncode
+            success = run([self.pip] + arguments, stdout=PIPE, stderr=PIPE).returncode
         else:
             success = run([self.pip] + arguments).returncode
         return (success == 0)
@@ -41,7 +41,7 @@ class Setup:
     def pip_installed(self):
         """ Checks if pip3 is installed """
         arguments = ["-V"]
-        return (self.run_pip(arguments, True))
+        return (self._run_pip(arguments, True))
 
     def library_installed(self, library):
         """ Checks if the library is installed from the internal installed array """
@@ -51,7 +51,7 @@ class Setup:
         """ Installs library """
         print ("Installing {0}".format(library))
         arguments = ["install", library]
-        success = self.run_pip(arguments)
+        success = self._run_pip(arguments)
         if (success == False):
             print ("Failed to install {0}".format(library))
             return (False)
@@ -62,7 +62,7 @@ class Setup:
     def uninstall_library(self, library):
         """ Uninstalls library """
         arguments = ["uninstall", library]
-        success = self.run_pip(arguments)
+        success = self._run_pip(arguments)
         removed = self._library_installed_shell(library) == False
         if (success == False):
             return (False, removed)
