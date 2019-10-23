@@ -6,6 +6,9 @@ from const import WATER_ADD_VOLUME, WATER_ADD_RATE
 def water_reset(terrain, time_passed):
     terrain.water_3d.fill(0)
 
+def water_hold(terrain, time_passed):
+	pass
+
 def water_rise(terrain, time_passed):
     layer = 0
     current_density = terrain.water_3d[layer][0][0]
