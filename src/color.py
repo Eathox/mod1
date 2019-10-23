@@ -1,19 +1,29 @@
 #!/usr/bin/env python
 """ Color Management """
 
-def hex_to_float(hex, alpha=False):
+class Color:
+    """ Color class """
+    def __init__(self):
+        self.r = 0
+        self.g = 0
+        self.b = 0
+        self.a = 255
+
+def _pair_to_float(pair):
+    """ Convert pair to a hex pair """
+    num = int(pair, 16)
+    return (num / 255)
+
+def hex_to_float(hex):
     """ Convert hex color string to float color array """
     if (not hex.startswith("#")):
         print ("Wrong formated hex {0}".format(hex))
-        return (0)
+        return
 
-    color = []
-    color.append(int(hex[1:3], 16) / 255) # R
-    color.append(int(hex[3:5], 16) / 255) # G
-    color.append(int(hex[5:7], 16) / 255) # B
-    if (alpha):
-        if (len(hex) < 9):
-            color.append(255)
-        else:
-            color.append(int(hex[7:9], 16) / 255)
+    color = Color()
+    color.r = _pair_to_float(hex[1:3])
+    color.g = _pair_to_float(hex[3:5])
+    color.b = _pair_to_float(hex[5:7])
+    if (len(hex) >= 9):
+        color.a = _pair_to_float(hex[7:9])
     return (color)

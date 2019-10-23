@@ -2,7 +2,7 @@
 """ General draw functions """
 
 from OpenGL.GL import GL_LINES, GL_TRIANGLES, glBegin, glEnd, glVertex3f, \
-    glColor3fv, glColor4fv
+    glColor3f, glColor4f
 
 from . const import MIN_HEIGHT, MAX_HEIGHT, DRAW_HEIGHT_WEIGHT, WATER_COLOR, \
     TERRAIN_COLOR_HIGH, TERRAIN_COLOR_MID, TERRAIN_COLOR_LOW, \
@@ -29,16 +29,16 @@ def draw_vertex_terrain(vertex):
         intensity = (z / (MAX_HEIGHT * DRAW_COLOR_INTENSITY_WEIGHT))
         # intensity = 1 - (z / (MAX_HEIGHT * DRAW_COLOR_INTENSITY_WEIGHT))
     intensity += minium_intensity
-    color[0] = color[0] * intensity
-    color[1] = color[1] * intensity
-    color[2] = color[2] * intensity
+    color.r *= intensity
+    color.g *= intensity
+    color.b *= intensity
 
-    glColor3fv(color)
+    glColor3f(color.r, color.g, color.b)
     glVertex3f(vertex[0], vertex[1], z * DRAW_HEIGHT_WEIGHT)
 
 def draw_vertex_water(vertex):
     """ Draws point with water color """
     z = vertex[2]
-    color = hex_to_float(WATER_COLOR, True)
-    glColor4fv(color)
+    color = hex_to_float(WATER_COLOR)
+    glColor4f(color.r, color.g, color.b, color.a)
     glVertex3f(vertex[0], vertex[1], z * DRAW_HEIGHT_WEIGHT)

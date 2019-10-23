@@ -30,7 +30,7 @@ def init_window(terrain):
     glEnable(GL_BLEND)
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
     color = hex_to_float(BACKGROUND_COLOR)
-    glClearColor(color[0], color[1], color[2], 1)
+    glClearColor(color.r, color.g, color.b, 1)
 
 def _quit_control(event):
     """ Quits if the event is a quit event """
