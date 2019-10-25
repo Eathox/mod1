@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Common constants """
+"""Common constants"""
 
 from pathlib import Path
 
@@ -27,7 +27,7 @@ DRAW_HEIGHT_WEIGHT = 0.6
 DRAW_COLOR_INTENSITY_WEIGHT = 1.65
 
 class Terrain:
-    """ Holds general information about map """
+    """Holds general information about map"""
     size = MAX_SIZE + (GRID_PADDING * 2)
     height_3d = (abs(MIN_HEIGHT) + abs(MAX_HEIGHT)) + 2 # To account for overflow on top and bottom
     error = ""

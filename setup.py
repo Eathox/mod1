@@ -1,23 +1,23 @@
 #!/usr/bin/env python
-""" Install all library dependencies constants """
+"""Install all library dependencies constants"""
 
 from sys import argv
 
 from setup import setup_const
 
-def _print_action_result(success, libraries, action_string):
-    """ print install or uninstall action results """
+def _print_action_result(success, libraries, action_str):
+    """print install or uninstall action results"""
     if (success == False):
-        print ("Failed to {0} all dependencies".format(action_string))
+        print (f"Failed to {action_str} all dependencies")
     if (libraries == [] and success == True):
-        print("All dependencies allready {0}.".format(action_string))
+        print(f"All dependencies allready {action_str}.")
     elif (libraries != []):
-        print ("\nSuccessfully {0} the following:".format(action_string))
+        print (f"\nSuccessfully {action_str} the following:")
         for library in libraries:
-            print (" - {0}".format(library))
+            print (f" - {library}")
 
 if __name__ == "__main__":
-    """ Setup dependencies """
+    """Setup dependencies"""
     setup = setup_const.Setup(argv[1:])
     if (setup.pip_installed() == False):
         suggestion = "Unrecognized kernel, unable to provide install suggestion."
@@ -27,13 +27,13 @@ if __name__ == "__main__":
             suggestion = "Consider runing: 'brew install python3' to install."
         elif (setup.platform == "win32"):
             suggestion = "Consider runing: 'python3 get-pip.py' to install."
-        print ("{0} is not installed.\n{1}".format(setup.pip, suggestion))
+        print (f"{setup.pip} is not installed.\n{suggestion}")
         exit()
 
     if (("--uninstall" in setup.args) or ("--remove" in setup.args)):
         success, libraries = setup.uninstall_libaries()
-        action_string = "uninstalled"
+        action_str = "uninstalled"
     else:
         success, libraries = setup.install_libaries()
-        action_string = "installed"
-    _print_action_result(success, libraries, action_string)
+        action_str = "installed"
+    _print_action_result(success, libraries, action_str)

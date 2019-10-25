@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Water simulation modes """
+"""Water simulation modes"""
 
 from . const import WATER_ADD_VOLUME, WATER_ADD_RATE
 

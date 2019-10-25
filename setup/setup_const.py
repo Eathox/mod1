@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-""" Common setup constants """
+"""Common setup constants"""
 
 from subprocess import run, PIPE
 from sys import platform
 
 class Setup:
-    """ General setup information """
+    """General setup information"""
     pip = "pip3"
     libraries = [
         "numpy",
@@ -14,24 +14,30 @@ class Setup:
     ]
 
     def __init__(self, args):
+        """Add args and collect all installed libraries"""
         self.platform = platform.lower()
         self.args = list(map(str.lower, args))
         self._set_installed()
 
+    def __str__(self):
+        """Return args and libaries in string form"""
+        name = self.__class__.__name__
+        return (f"<{name} - args: {self.args}, libraries: {self.libraries}>")
+
     def _library_installed_shell(self, library):
-        """ Checks if the library is installed using shell """
+        """Checks if the library is installed using shell"""
         arguments = ["show", library]
         return (self._run_pip(arguments, True))
 
     def _set_installed(self):
-        """ Set internal installed array """
+        """Set internal installed array"""
         self.installed = []
         for library in self.libraries:
             if (self._library_installed_shell(library) == True):
                 self.installed.append(library)
 
     def _run_pip(self, arguments, silent=False):
-        """ Runs pip with arguments and returns success """
+        """Runs pip with arguments and returns success"""
         if (silent == True):
             success = run([self.pip] + arguments, stdout=PIPE, stderr=PIPE).returncode
         else:
@@ -39,28 +45,28 @@ class Setup:
         return (success == 0)
 
     def pip_installed(self):
-        """ Checks if pip3 is installed """
+        """Checks if pip3 is installed"""
         arguments = ["-V"]
         return (self._run_pip(arguments, True))
 
     def library_installed(self, library):
-        """ Checks if the library is installed from the internal installed array """
+        """Checks if the library is installed from the internal installed array"""
         return (library in self.installed)
 
     def install_library(self, library):
-        """ Installs library """
-        print ("Installing {0}".format(library))
+        """Installs library"""
+        print (f"Installing {library}")
         arguments = ["install", library]
         success = self._run_pip(arguments)
         if (success == False):
-            print ("Failed to install {0}".format(library))
+            print (f"Failed to install {library}")
             return (False)
         elif (library not in self.installed):
             self.installed.append(library)
         return (success)
 
     def uninstall_library(self, library):
-        """ Uninstalls library """
+        """Uninstalls library"""
         arguments = ["uninstall", library]
         success = self._run_pip(arguments)
         removed = self._library_installed_shell(library) == False
@@ -71,7 +77,7 @@ class Setup:
         return (success, removed)
 
     def install_libaries(self):
-        """ Installs all libaries """
+        """Installs all libaries"""
         installed = []
         for library in self.libraries:
             if (self.library_installed(library) == True):
@@ -83,7 +89,7 @@ class Setup:
         return (True, installed)
 
     def uninstall_libaries(self):
-        """ Uninstalls all libaries """
+        """Uninstalls all libaries"""
         uninstalled = []
         for library in self.libraries:
             if (self.library_installed(library) == False):

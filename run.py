@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Runs the mod1 program """
+"""Runs the mod1 program"""
 
 from sys import argv
 
@@ -8,7 +8,7 @@ import pygame
 from src import const, map_file, window
 
 if __name__ == "__main__":
-    """ Read terrain and run simulation """
+    """Read terrain and run simulation"""
     if (len(argv) != 2):
         print ("Usage: python3", argv[0], const.USAGE)
         exit(0)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Validation and reading of map files """
+"""Validation and reading of map files"""
 
 from re import search, sub
 
@@ -8,19 +8,19 @@ from numpy import zeros
 from . const import GRID_PADDING, MIN_HEIGHT, MAX_HEIGHT, MAX_SIZE
 
 def _validate_line(line, row, terrain):
-    """ Validates a single lines format """
+    """Validates a single lines format"""
     line = sub("[ \t]+", " ", line) # Compress multipale spacers to single space
     if (len(line) < 1):
-        return ("Line {0} is empty".format(row))
+        return (f"Line {row} is empty")
 
     match = search(r"^([-]?\d[ ]?)+\n?", line) # match digits with space in between
     match = match.group()
     if (len(match) != len(line)):
-        return ("Line {0} contains none digits".format(row))
+        return (f"Line {row} contains none digits")
 
     match = match.strip("\n")
     if (match.endswith(" ")):
-        return ("Line {0} has trailing whitespace".format(row))
+        return (f"Line {row} has trailing whitespace")
 
     count = 1
     points = match.split()
@@ -28,16 +28,16 @@ def _validate_line(line, row, terrain):
     for point in points:
         point = int(point)
         if (count > MAX_SIZE):
-            return ("Line {0} exceeds max size ({1})".format(row, MAX_SIZE))
+            return (f"Line {row} exceeds max size ({MAX_SIZE})")
         elif (point < MIN_HEIGHT):
-            return ("Line {0} '{1}' is smaller then min size ({2})".format(row, point, MIN_HEIGHT))
+            return (f"Line {row} '{point}' is smaller then min size ({MIN_HEIGHT})")
         elif (point > MAX_HEIGHT):
-            return ("Line {0} '{1}' is bigger then max size ({2})".format(row, point, MAX_HEIGHT))
+            return (f"Line {row} '{point}' is bigger then max size ({MAX_HEIGHT})")
         count += 1
     return ("")
 
 def _validate_map_file(terrain):
-    """ Validates file format """
+    """Validates file format"""
     if (terrain.loc.endswith(".mod1") == False):
         return ("Invalid file extension expected '.mod1'")
     elif (terrain.file.exists() == False):
@@ -50,7 +50,7 @@ def _validate_map_file(terrain):
     for line in content:
         terrain.error = _validate_line(line, row, terrain)
         if (row > MAX_SIZE):
-            return ("Lines in file exceeds max size ({0})".format(MAX_SIZE))
+            return (f"Lines in file exceeds max size ({MAX_SIZE})")
         elif (terrain.error != ""):
             return (terrain.error)
         row += 1
@@ -59,23 +59,17 @@ def _validate_map_file(terrain):
     return (terrain.error)
 
 def _grid_to_3d(terrain):
-    layer = 0
     min_height = abs(MIN_HEIGHT)
-    while (layer < terrain.height_3d):
-        row = 0
-        while (row < terrain.size):
-            point = 0
-            while (point < terrain.size):
+    for layer in range(terrain.height_3d):
+        for row in range(terrain.size):
+            for point in range(terrain.size):
                 if (terrain.grid[row][point] >= (layer - min_height)):
                     terrain.grid_3d[layer][row][point] = 1
                 else:
                     terrain.grid_3d[layer][row][point] = 0
-                point += 1
-            row += 1
-        layer += 1
 
 def read_map_file(terrain):
-    """ Reads file into terrain format """
+    """Reads file into terrain format"""
     terrain.error = _validate_map_file(terrain)
     if (terrain.error != ""):
         return (terrain.error)
