@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """Window Management"""
 
+from os import environ
 from time import time
 
 import pygame
@@ -19,6 +20,7 @@ from . draw_3d import draw_terrain_3d, draw_water_3d
 
 def init_window(terrain):
     """Initialise the application window"""
+    environ['SDL_VIDEO_CENTERED'] = '1'
     pygame.init()
     resolution = (WINDOW_WIDTH, WINDOW_HEIGHT)
     pygame.display.set_mode(resolution, DOUBLEBUF | OPENGL)
@@ -54,10 +56,10 @@ def _water_control(terrain, water_mode_func, event):
 
 def event_loop_window(terrain):
     """Catches events"""
-    running = True
     frames = 0
+    running = True
     fps_start_time = time()
-    water_start_time = time()
+    water_start_time = fps_start_time
     water_mode_func = water_reset
     while running:
         for event in pygame.event.get():

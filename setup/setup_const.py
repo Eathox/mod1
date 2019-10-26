@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """Common setup constants"""
 
-from subprocess import run, PIPE
 from sys import platform
+from subprocess import run, PIPE
 
 class Setup:
     """General setup information"""
@@ -36,6 +36,29 @@ class Setup:
             if (self._library_installed_shell(library) == True):
                 self.installed.append(library)
 
+    def _install_library(self, library):
+        """Installs library"""
+        print (f"Installing {library}")
+        arguments = ["install", library]
+        success = self._run_pip(arguments)
+        if (success == False):
+            print (f"Failed to install {library}")
+            return (False)
+        elif (library not in self.installed):
+            self.installed.append(library)
+        return (success)
+
+    def _uninstall_library(self, library):
+        """Uninstalls library"""
+        arguments = ["uninstall", library]
+        success = self._run_pip(arguments)
+        removed = self._library_installed_shell(library) == False
+        if (success == False):
+            return (False, removed)
+        if (removed == True):
+            self.installed.remove(library)
+        return (success, removed)
+
     def _run_pip(self, arguments, silent=False):
         """Runs pip with arguments and returns success"""
         if (silent == True):
@@ -53,36 +76,13 @@ class Setup:
         """Checks if the library is installed from the internal installed array"""
         return (library in self.installed)
 
-    def install_library(self, library):
-        """Installs library"""
-        print (f"Installing {library}")
-        arguments = ["install", library]
-        success = self._run_pip(arguments)
-        if (success == False):
-            print (f"Failed to install {library}")
-            return (False)
-        elif (library not in self.installed):
-            self.installed.append(library)
-        return (success)
-
-    def uninstall_library(self, library):
-        """Uninstalls library"""
-        arguments = ["uninstall", library]
-        success = self._run_pip(arguments)
-        removed = self._library_installed_shell(library) == False
-        if (success == False):
-            return (False, removed)
-        if (removed == True):
-            self.installed.remove(library)
-        return (success, removed)
-
     def install_libaries(self):
         """Installs all libaries"""
         installed = []
         for library in self.libraries:
             if (self.library_installed(library) == True):
                 continue
-            success = self.install_library(library)
+            success = self._install_library(library)
             if (success == False or (self.library_installed(library) == False)):
                 return (False, installed)
             installed.append(library)
@@ -94,7 +94,7 @@ class Setup:
         for library in self.libraries:
             if (self.library_installed(library) == False):
                 continue
-            success, removed = self.uninstall_library(library)
+            success, removed = self._uninstall_library(library)
             if (success == False):
                 return (False, uninstalled)
             elif (removed):
