@@ -12,15 +12,15 @@ from . color import HexColor
 def draw_vertex_terrain(vertex):
     """Draws point with terrain height color"""
     z = vertex[2]
-    if (z < 0 and z <= (MIN_HEIGHT / 2)):
+    if z < 0 and z <= (MIN_HEIGHT / 2):
         color = TERRAIN_COLOR_LOW
-    elif (z > 0 and z >= (MAX_HEIGHT / 2)):
+    elif z > 0 and z >= (MAX_HEIGHT / 2):
         color = TERRAIN_COLOR_HIGH
     else:
         color = TERRAIN_COLOR_MID
 
     color = HexColor(color)
-    if (z < 0):
+    if z < 0:
         minium_intensity = MIN_HEIGHT / (MIN_HEIGHT * DRAW_COLOR_INTENSITY_WEIGHT)
         intensity = (z / ((MIN_HEIGHT - 1) * DRAW_COLOR_INTENSITY_WEIGHT))
     else:

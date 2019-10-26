@@ -20,19 +20,19 @@ def _get_corner(point, row, layer):
         (point + 1, row + 1, layer + 1),
         (point, row + 1, layer + 1)
     ]
-    return (corners)
+    return corners
 
 def _density_from_vertex(grid, vertex):
     """Gets vertex's density"""
-    return (grid[vertex[2]][vertex[1]][vertex[0]])
+    return grid[vertex[2]][vertex[1]][vertex[0]]
 
 def _get_active_corners(grid, iso_level, corners):
     """Checks which corner falls in cube"""
     active_corners = 0
     for i in range(len(corners)):
-        if (_density_from_vertex(grid, corners[i]) < iso_level):
+        if _density_from_vertex(grid, corners[i]) < iso_level:
             active_corners |= (1 << i)
-    return (active_corners)
+    return active_corners
 
 def _interpolate(grid, start, end, iso_level):
     """Interpolate between start and end"""

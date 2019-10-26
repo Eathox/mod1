@@ -36,23 +36,23 @@ def init_window(terrain):
 
 def _quit_control(event):
     """Quits if the event is a quit event"""
-    if (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-        return (False)
-    elif (event.type == pygame.QUIT):
-        return (False)
-    return (True)
+    if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+        return False
+    elif event.type == pygame.QUIT:
+        return False
+    return True
 
 def _water_control(terrain, water_mode_func, event):
     """Control water if its water control event"""
-    if (event.type != pygame.KEYDOWN):
-        return (water_mode_func)
-    if (event.key == pygame.K_SPACE):
-        return (water_hold)
-    elif (event.key == pygame.K_r):
-        return (water_reset)
-    elif (event.key == pygame.K_1):
-        return (water_rise)
-    return (water_mode_func)
+    if event.type != pygame.KEYDOWN:
+        return water_mode_func
+    if event.key == pygame.K_SPACE:
+        return water_hold
+    elif event.key == pygame.K_r:
+        return water_reset
+    elif event.key == pygame.K_1:
+        return water_rise
+    return water_mode_func
 
 def event_loop_window(terrain):
     """Catches events"""
@@ -74,7 +74,7 @@ def event_loop_window(terrain):
         water_start_time = time()
 
         time_passed = (time() - fps_start_time)
-        if (time_passed >= 1):
+        if time_passed >= 1:
             fps = frames // time_passed
             pygame.display.set_caption(f"{NAME} - FPS: {fps}")
             fps_start_time = time()

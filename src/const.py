@@ -41,7 +41,7 @@ class Terrain:
         self.file = Path(file_path)
 
 WATER_ADD_RATE = 2 # In seconds the water add rate
-WATER_ADD_VOLUME = 1 # Volume to add every WATER_ADD_RATE (range 0 to 1)
+WATER_ADD_VOLUME = 1 # Volume to add every WATER_ADD_RATE range 0 to 1
 MARCHING_CUBE_TERRAIN_ISO_LEVEL = 1
 MARCHING_CUBE_WATTER_ISO_LEVEL = 0.5
 
