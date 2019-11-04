@@ -5,7 +5,7 @@ from sys import argv
 
 import pygame
 
-from src import const, map_file, window
+from src import const, map_file, window, loop
 
 if __name__ == "__main__":
     """Read terrain and run simulation"""
@@ -19,7 +19,7 @@ if __name__ == "__main__":
         print("Error: " + terrain.error)
         exit(0)
 
-    window.init_window(terrain)
-    window.event_loop_window(terrain)
+    # window.init_window(terrain)
+    # loop.event_loop_window(terrain)
     pygame.quit()
     quit()
