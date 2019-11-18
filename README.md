@@ -3,7 +3,7 @@ A simple a water flow simulator i'm working on in my free time to get more famil
 ![Screenshot](examplePicture.png)
 ### Usage:
 Run the program by: `python3 run.py <Mapfile>` <br/>
-Example mapfiles are present under `maps`
+Example mapfiles are present in the folder `maps`
 
 ### Controls:
   * Slow-Raise: `1`
