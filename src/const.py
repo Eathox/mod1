@@ -5,7 +5,7 @@ from pathlib import Path
 
 from numpy import zeros
 
-USAGE = "Mapfile"
+USAGE = "<Mapfile>"
 NAME = "Mod1"
 
 BACKGROUND_COLOR = "#212121"
