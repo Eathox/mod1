@@ -65,11 +65,8 @@ class Setup:
 	def __str__(self):
 		"""Return args and libraries in string form"""
 		name = self.__class__.__name__
-		library_names = []
-		for library in self:
-			library_names.append(str(library))
-		library_names = " ".join(library_names)
-		return f"<{name}: {self.args}, ({library_names})>"
+		library_names = list(map(str, self))
+		return f"<{name}: {self.args}, {library_names}>"
 
 	def __iter__(self):
 		"""Define iterator"""
@@ -97,7 +94,7 @@ class Setup:
 		for library in self:
 			if library.library_installed() == False:
 				continue
-			success, removed = library.uninstall_library()
+			success = library.uninstall_library()
 			if success == False:
 				return False, uninstalled
 		return True, uninstalled
