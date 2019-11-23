@@ -5,7 +5,7 @@ from pathlib import Path
 
 from numpy import zeros
 
-USAGE = "<Mapfile>"
+USAGE = "Mapfile"
 NAME = "Mod1"
 
 BACKGROUND_COLOR = "#212121"
@@ -19,8 +19,27 @@ WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
 WINDOW_RATIO = (WINDOW_WIDTH / WINDOW_HEIGHT)
 
+GRID_PADDING = 2 # Grid border badding
+MIN_HEIGHT = -5
+MAX_HEIGHT = 5
+MAX_SIZE = 7
+
 DRAW_HEIGHT_WEIGHT = 0.6
 DRAW_COLOR_INTENSITY_WEIGHT = 1.65
+
+class Terrain:
+    """Holds general information about map"""
+    size = MAX_SIZE + (GRID_PADDING * 2)
+    height_3d = (abs(MIN_HEIGHT) + abs(MAX_HEIGHT)) + 2 # To account for overflow on top and bottom
+    error = ""
+    points = []
+    grid = zeros((size, size))
+    grid_3d = zeros((height_3d, size, size))
+    water_3d = zeros((height_3d, size, size))
+
+    def __init__(self, file_path):
+        self.loc = file_path
+        self.file = Path(file_path)
 
 WATER_ADD_RATE = 2 # In seconds the water add rate
 WATER_ADD_VOLUME = 1 # Volume to add every WATER_ADD_RATE range 0 to 1

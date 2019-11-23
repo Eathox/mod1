@@ -3,10 +3,6 @@
 
 class Color:
     """Color class"""
-    r = 0
-    g = 0
-    b = 0
-    a = 1
 
     def __init__(self, r, g, b, a=1):
         """Color in rgba range 0 to 1"""
@@ -26,7 +22,7 @@ class Color:
         self.__dict__[channel] = value
 
     def __str__(self):
-        """Color str"""
+        """Color info string"""
         name = self.__class__.__name__
         return f"<{name}: {self.r}, {self.g}, {self.b}, {self.a}>"
 
