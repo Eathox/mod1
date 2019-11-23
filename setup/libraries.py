@@ -24,7 +24,7 @@ class Library:
 	def __str__(self):
 		"""Return library name"""
 		name = self.__class__.__name__
-		return f"<{name} - {self.name}>"
+		return f"<{name}: {self.name}>"
 
 	def library_installed(self):
 		"""Checks if the library is installed using shell"""
@@ -69,7 +69,7 @@ class Setup:
 		for library in self:
 			library_names.append(str(library))
 		library_names = " ".join(library_names)
-		return f"<{name} - {self.args}, ({library_names})>"
+		return f"<{name}: {self.args}, ({library_names})>"
 
 	def __iter__(self):
 		"""Define iterator"""
