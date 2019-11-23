@@ -3,7 +3,7 @@
 
 from sys import argv
 
-from setup import libraries
+from setup import manager
 
 g_dependencies = [
 	"numpy",
@@ -17,6 +17,15 @@ g_suggestions = {
 	"win32": "Consider runing: 'python3 get-pip.py' to install.",
 }
 
+def _print_pip_not_installed(manager):
+	if manager.platform in g_suggestions:
+		suggestion = g_suggestions[manager.platform]
+	else:
+		suggestion = "Unrecognized kernel, unable to provide install suggestion."
+	print(f"{manager.pip} is not installed.\n{suggestion}")
+	print(f"For more info visit: https://pip.pypa.io/en/stable/installing/")
+	exit()
+
 def _print_action_result(success, libraries, action_str):
 	"""print install or uninstall action results"""
 	if success == False:
@@ -26,24 +35,18 @@ def _print_action_result(success, libraries, action_str):
 	elif libraries != []:
 		print(f"\nSuccessfully {action_str} the following:")
 		for library in libraries:
-			print(f" - {library}")
+			print(f" - {library.name}")
 
 if __name__ == "__main__":
 	"""Setup dependencies"""
-	setup = libraries.Setup(argv[1:], *g_dependencies)
-	if setup.pip_installed() == False:
-		if setup.platform in g_suggestions:
-			suggestion = g_suggestions[setup.platform]
-		else:
-			suggestion = "Unrecognized kernel, unable to provide install suggestion."
-		print(f"{setup.pip} is not installed.\n{suggestion}")
-		print(f"For more info visit: https://pip.pypa.io/en/stable/installing/")
-		exit()
+	manager = manager.Manager(argv[1:], *g_dependencies)
+	if manager.pip_installed() == False:
+		_print_pip_not_installed(manager)
 
-	if "--uninstall" in setup.args or "--remove" in setup.args:
-		success, libraries = setup.uninstall_libraries()
+	if "--uninstall" in manager.args or "--remove" in manager.args:
+		success, libraries = manager.uninstall_libraries()
 		action_str = "uninstalled"
 	else:
-		success, libraries = setup.install_libraries()
+		success, libraries = manager.install_libraries()
 		action_str = "installed"
 	_print_action_result(success, libraries, action_str)
