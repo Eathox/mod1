@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """Runs the mod1 program"""
 
-from pathlib import Path
 from sys import argv
 
 import pygame
 
-from src import USAGE, Grid3D
+from src import USAGE, Grid3D, validate_map_file
 
 if __name__ == "__main__":
 	"""Read terrain and run simulation"""
@@ -14,7 +13,7 @@ if __name__ == "__main__":
 		print("Usage: python3", argv[0], USAGE)
 		exit(0)
 
-	print (argv[0], Path(argv[0]))
+	validate_map_file(argv[1])
 	# terrain = const.Terrain(argv[1])
 	# terrain.error = map_file.read_map_file(terrain)
 	# if terrain.error != "":
