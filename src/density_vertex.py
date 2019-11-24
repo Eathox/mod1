@@ -26,16 +26,33 @@ class DensityVertex:
 
 	def __mul__(self, other):
 		"""Multiplication of DensityVertex"""
+		if not isinstance(other, int):
+			raise TypeError("Multiplying by none int type")
+
 		density = self.density * other
+		return DensityVertex(self.x, self.y, self.z, density)
+
+	def __truediv__(self, other):
+		"""Division of DensityVertex"""
+		if not isinstance(other, int):
+			raise TypeError("Deviding by none int type")
+
+		density = self.density / other
 		return DensityVertex(self.x, self.y, self.z, density)
 
 	def __add__(self, other):
 		"""Addition of DensityVertex"""
+		if not isinstance(other, int):
+			raise TypeError("Adding by none int type")
+
 		density = self.density + other
 		return DensityVertex(self.x, self.y, self.z, density)
 
 	def __sub__(self, other):
 		"""Subtraction of DensityVertex"""
+		if not isinstance(other, int):
+			raise TypeError("Subtracting by none int type")
+
 		density = self.density - other
 		return DensityVertex(self.x, self.y, self.z, density)
 
