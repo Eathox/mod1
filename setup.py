@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Install all library dependencies constants"""
 
 from sys import argv

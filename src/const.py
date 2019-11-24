@@ -1,9 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Common constants"""
 
 from pathlib import Path
-
-from numpy import zeros
 
 USAGE = "<Mapfile>"
 NAME = "Mod1"

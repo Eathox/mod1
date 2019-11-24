@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Pip util functions"""
 
 from subprocess import run, PIPE

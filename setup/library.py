@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Defintion of library"""
 
 from . pip import run_pip

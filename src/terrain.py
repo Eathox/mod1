@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Validation and reading of map files"""
 
 from re import search, sub

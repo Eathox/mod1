@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Definition of grid3d"""
 
 from numpy import zeros
@@ -12,9 +12,9 @@ class Grid3D:
 		self._setDimension("length", length)
 		self._setDimension("height", height)
 		self.grid = zeros((height, length, width))
-		self.indexWidth = 0
-		self.indexLength = 0
-		self.indexHeight = 0
+		self.__indexWidth = 0
+		self.__indexLength = 0
+		self.__indexHeight = 0
 
 	def __str__(self):
 		"""Grid3D info string"""
@@ -38,21 +38,21 @@ class Grid3D:
 
 	def __next__(self):
 		"""Get next grid element"""
-		if self.indexHeight == self.height:
-			self.indexHeight = 0
+		if self.__indexHeight == self.height:
+			self.__indexHeight = 0
 			raise StopIteration
 
-		density = self.grid[self.indexHeight][self.indexLength][self.indexWidth]
-		vertex = (self.indexHeight, self.indexLength, self.indexWidth, density)
-		if self.indexWidth < (self.width - 1):
-			self.indexWidth += 1
-		elif self.indexLength < (self.length - 1):
-			self.indexWidth = 0
-			self.indexLength += 1
-		elif self.indexHeight < self.height:
-			self.indexWidth = 0
-			self.indexLength = 0
-			self.indexHeight += 1
+		density = self.grid[self.__indexHeight][self.__indexLength][self.__indexWidth]
+		vertex = (self.__indexHeight, self.__indexLength, self.__indexWidth, density)
+		if self.__indexWidth < (self.width - 1):
+			self.__indexWidth += 1
+		elif self.__indexLength < (self.length - 1):
+			self.__indexWidth = 0
+			self.__indexLength += 1
+		elif self.__indexHeight < self.height:
+			self.__indexWidth = 0
+			self.__indexLength = 0
+			self.__indexHeight += 1
 		return vertex
 
 	def _keyIsDimension(self, key):

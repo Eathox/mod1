@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """Runs the mod1 program"""
 
+from pathlib import Path
 from sys import argv
 
 import pygame
@@ -13,10 +14,7 @@ if __name__ == "__main__":
 		print("Usage: python3", argv[0], USAGE)
 		exit(0)
 
-	terrainGrid = Grid3D(3, 3, 1)
-	print (terrainGrid)
-	for point in terrainGrid:
-		print (point)
+	print (argv[0], Path(argv[0]))
 	# terrain = const.Terrain(argv[1])
 	# terrain.error = map_file.read_map_file(terrain)
 	# if terrain.error != "":
