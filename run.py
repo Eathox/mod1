@@ -5,15 +5,15 @@ from sys import argv
 
 import pygame
 
-from src import const, terrain, grid3d#, window, loop
+from src import USAGE, Grid3D
 
 if __name__ == "__main__":
 	"""Read terrain and run simulation"""
 	if len(argv) != 2:
-		print("Usage: python3", argv[0], const.USAGE)
+		print("Usage: python3", argv[0], USAGE)
 		exit(0)
 
-	terrainGrid = grid3d.Grid3D(3, 3, 1)
+	terrainGrid = Grid3D(3, 3, 1)
 	print (terrainGrid)
 	for point in terrainGrid:
 		print (point)

@@ -3,7 +3,7 @@
 
 from sys import argv
 
-from setup import manager
+from setup import Manager
 
 g_dependencies = [
 	"numpy",
@@ -39,7 +39,7 @@ def _print_action_result(success, libraries, action_str):
 
 if __name__ == "__main__":
 	"""Setup dependencies"""
-	manager = manager.Manager(argv[1:], *g_dependencies)
+	manager = Manager(argv[1:], *g_dependencies)
 	if manager.pip_installed() == False:
 		_print_pip_not_installed(manager)
 
