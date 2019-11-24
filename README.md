@@ -1,6 +1,6 @@
 # Mod1
 
-A simple a water flow simulator i'm working on in my free time to get more familar with python
+A simple a water flow simulator i'm working on in my free time to get more familiar with python
 All the rendering is done using the [marching cubes algorithm](https://en.wikipedia.org/wiki/Marching_cubes)
 ![Screenshot](examplePicture.png)
 
