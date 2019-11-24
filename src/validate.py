@@ -28,20 +28,20 @@ def _validate_line(line, row, size):
 	if line.endswith(" "):
 		raise Exception(f"Line {row} has trailing whitespace")
 
-	count = 1
+	count = 0
 	points = line.split()
 	for point in points:
 		point = int(point)
-		if count > MAX_SIZE:
+		if (count + 1) > MAX_SIZE:
 			raise Exception(f"Line {row} exceeds max size ({MAX_SIZE})")
 		elif point < MIN_HEIGHT:
 			raise Exception(f"Line {row} '{point}' is smaller then min size ({MIN_HEIGHT})")
 		elif point > MAX_HEIGHT:
 			raise Exception(f"Line {row} '{point}' is bigger then max size ({MAX_HEIGHT})")
 		count += 1
-	count -= 1
+
 	if count != size:
-		raise Exception(f"Line {row} doesn't contain {size} entries ({count})")
+		raise Exception(f"Line {row} contains {count} entries, expected {size}")
 
 def validate_map_file(map_file):
 	try:
