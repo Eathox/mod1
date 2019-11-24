@@ -6,7 +6,10 @@ from pathlib import Path
 
 import pygame
 
-from src import USAGE, Grid3D, validate_map_file
+from src import Grid3D, validate_map_file
+
+USAGE = "<Mapfile>"
+NAME = "Mod1"
 
 if __name__ == "__main__":
 	"""Read terrain and run simulation"""

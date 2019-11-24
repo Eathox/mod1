@@ -3,6 +3,8 @@
 
 from numpy import zeros
 
+from . density_vertex import DensityVertex
+
 class Grid3D:
 	"""3d density grid"""
 
@@ -43,7 +45,7 @@ class Grid3D:
 			raise StopIteration
 
 		density = self.grid[self.__indexHeight][self.__indexLength][self.__indexWidth]
-		vertex = (self.__indexHeight, self.__indexLength, self.__indexWidth, density)
+		vertex = DensityVertex(self.__indexHeight, self.__indexLength, self.__indexWidth, density)
 		if self.__indexWidth < (self.width - 1):
 			self.__indexWidth += 1
 		elif self.__indexLength < (self.length - 1):
