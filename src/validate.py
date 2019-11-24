@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Validate map file"""
 
-from pathlib import Path
 from re import search, sub
 
 MIN_HEIGHT = -5
@@ -45,7 +44,6 @@ def _validate_line(line, row, size):
 		raise Exception(f"Line {row} doesn't contain {size} entries ({count})")
 
 def validate_map_file(map_file):
-	map_file = Path(map_file)
 	try:
 		if map_file.suffix != ".mod1":
 			raise Exception("Invalid file extension expected '.mod1'")

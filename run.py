@@ -2,6 +2,7 @@
 """Runs the mod1 program"""
 
 from sys import argv
+from pathlib import Path
 
 import pygame
 
@@ -13,7 +14,10 @@ if __name__ == "__main__":
 		print("Usage: python3", argv[0], USAGE)
 		exit(0)
 
-	validate_map_file(argv[1])
+	map_file = Path(argv[1])
+	if len(map_file.suffix) == 0:
+		map_file = Path(argv[1] + ".mod1")
+	validate_map_file(map_file)
 	# terrain = const.Terrain(argv[1])
 	# terrain.error = map_file.read_map_file(terrain)
 	# if terrain.error != "":
