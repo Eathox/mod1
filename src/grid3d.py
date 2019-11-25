@@ -29,6 +29,10 @@ class Grid3D:
 
 	def __setitem__(self, key, value):
 		"""Set the Grid3D key to value"""
+		self.__setattr__(key, value)
+
+	def __setattr__(self, key, value):
+		"""Set the Grid3D key to value"""
 		if self._keyIsDimension(key):
 			self._setDimension(key, value)
 		else:

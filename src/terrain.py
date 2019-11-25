@@ -35,6 +35,10 @@ class Terrain:
 
 	def __setitem__(self, key, value):
 		"""Set the Terrain key to value"""
+		self.__setattr__(key, value)
+
+	def __setattr__(self, key, value):
+		"""Set the Terrain key to value"""
 		self.__dict__[key] = value
 
 	def __iter__(self):
