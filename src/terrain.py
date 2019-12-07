@@ -16,7 +16,7 @@ class Terrain:
 		self.padding = GRID_PADDING
 		self.size = MAX_SIZE + (self.padding * 2)
 		self.height = (abs(MIN_HEIGHT) + abs(MAX_HEIGHT)) + 2 # To account for overflow on top and bottom
-		self.grid_3d = DensityMap(self.size, self.size, self.height)
+		self.density_map = DensityMap(self.size, self.size, self.height)
 		if map_content is not None:
 			self._parse_map_content(map_content)
 
@@ -39,7 +39,7 @@ class Terrain:
 
 	def __iter__(self):
 		"""Define iterator"""
-		return self.grid_3d.__iter__()
+		return self.density_map.__iter__()
 
 	def _parse_map_content(self, map_content):
 		""""""
