@@ -19,8 +19,7 @@ if __name__ == "__main__":
 		exit(0)
 
 	map_content = get_map_content(argv[1])
-	print(map_content)
-	# validate_map_file(map_content)
+	validate_map_file(map_content)
 	# terrain = const.Terrain(argv[1])
 	# terrain.error = map_file.read_map_file(terrain)
 	# if terrain.error != "":
