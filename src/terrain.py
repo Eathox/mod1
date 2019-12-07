@@ -48,3 +48,7 @@ class Terrain:
 	def empty(self):
 		"""Reset density"""
 		self.density_map.empty()
+
+	def print(self, vertexFormat=False):
+		""""""
+		self.density_map.print(vertexFormat)
