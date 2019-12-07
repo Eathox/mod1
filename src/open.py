@@ -5,12 +5,14 @@ from re import sub
 from pathlib import Path
 
 def	_open_map_file(file_name):
+	""""""
 	map_file = Path(file_name)
 	if len(map_file.suffix) == 0:
 		map_file = Path(file_name + ".mod1")
 	return map_file
 
 def get_map_content(file_name):
+	""""""
 	try:
 		with _open_map_file(file_name) as map_file:
 			if map_file.suffix != ".mod1":

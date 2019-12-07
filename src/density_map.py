@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Definition of grid3d"""
+"""Definition of DensityMap"""
 
 from numpy import zeros
 
 from . density_vertex import DensityVertex
 
-class Grid3D:
-	"""3d density grid"""
+class DensityMap:
+	"""DensityMap"""
 
 	def __init__(self, width, length, height):
 		"""Create a grid with dimensions"""
@@ -19,20 +19,20 @@ class Grid3D:
 		self.__indexHeight = 0
 
 	def __str__(self):
-		"""Grid3D info string"""
+		"""DensityMap info string"""
 		name = self.__class__.__name__
 		return f"<{name}: {self.width}, {self.length}, {self.height}>"
 
 	def __getitem__(self, key):
-		"""Get the Grid3D key value"""
+		"""Get the DensityMap key value"""
 		return self.__dict__[key]
 
 	def __setitem__(self, key, value):
-		"""Set the Grid3D key to value"""
+		"""Set the DensityMap key to value"""
 		self.__setattr__(key, value)
 
 	def __setattr__(self, key, value):
-		"""Set the Grid3D key to value"""
+		"""Set the DensityMap key to value"""
 		if self._keyIsDimension(key):
 			self._setDimension(key, value)
 		else:
@@ -66,11 +66,16 @@ class Grid3D:
 		return key.lower() in ["width", "length", "height"]
 
 	def _setDimension(self, dim, value):
-		"""Set Grid3D dimension"""
+		"""Set DensityMap dimension"""
 		if not self._keyIsDimension(dim):
 			raise TypeError(f"Unknown terrain dimension: {dim}")
 		if not isinstance(value, int) or value <= 0:
 			raise TypeError(f"Invalid terrain {dim} value: {value}")
 		self.__dict__[dim] = value
+
+	def clear(self):
+		"""Reset density"""
+		for vertex in self:
+			vertex.empty()
 
 
