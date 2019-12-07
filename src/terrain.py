@@ -8,10 +8,6 @@ GRID_PADDING = 2 # Grid border badding
 MIN_HEIGHT = -5
 MAX_HEIGHT = 5
 
-TERRAIN_COLOR_HIGH = "#604020"
-TERRAIN_COLOR_MID = "#206040"
-TERRAIN_COLOR_LOW = "#333333"
-
 class Terrain:
 	"""Terrain grid"""
 

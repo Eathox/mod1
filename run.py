@@ -3,12 +3,11 @@
 
 from os import environ
 from sys import argv
-from pathlib import Path
 
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 
-from src import Grid3D, validate_map_file
+from src import Grid3D, get_map_content, validate_map_file
 
 USAGE = "<Mapfile>"
 NAME = "Mod1"
@@ -19,10 +18,9 @@ if __name__ == "__main__":
 		print("Usage: python3", argv[0], USAGE)
 		exit(0)
 
-	map_file = Path(argv[1])
-	if len(map_file.suffix) == 0:
-		map_file = Path(argv[1] + ".mod1")
-	validate_map_file(map_file)
+	map_content = get_map_content(argv[1])
+	print(map_content)
+	# validate_map_file(map_content)
 	# terrain = const.Terrain(argv[1])
 	# terrain.error = map_file.read_map_file(terrain)
 	# if terrain.error != "":
