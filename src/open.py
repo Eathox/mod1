@@ -20,8 +20,8 @@ def get_map_content(file_name):
 
 			content = map_file.read_text()
 			content = content.strip()
-			content = sub("[ \t]+", " ", content) # Compress multipale spacers to a single space
-			content = sub("\n{2,}", "\n", content) # Compress multipale newlines to a single newline
+			content = sub(r"[ \t]+", " ", content) # Compress multipale spacers to a single space
+			content = sub(r"\n+", "\n", content) # Compress multipale newlines to a single newline
 			if len(content) == 0:
 				raise Exception(f"File '{map_file}' is empty")
 			return content
