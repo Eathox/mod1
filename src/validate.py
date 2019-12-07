@@ -3,9 +3,7 @@
 
 from re import search
 
-MIN_HEIGHT = -5
-MAX_HEIGHT = 5
-MAX_SIZE = 7
+from . terrain import MAX_SIZE, MAX_HEIGHT, MIN_HEIGHT
 
 def _line_size(line):
 	"""Counts the amount of fields in line"""
