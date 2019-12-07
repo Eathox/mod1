@@ -44,3 +44,7 @@ class Terrain:
 	def _parse_map_content(self, map_content):
 		""""""
 		pass
+
+	def empty(self):
+		"""Reset density"""
+		self.density_map.empty()

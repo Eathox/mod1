@@ -9,11 +9,11 @@ class DensityMap:
 	"""DensityMap"""
 
 	def __init__(self, width, length, height):
-		"""Create a grid with dimensions"""
+		"""Create a 3Dgrid with dimensions"""
 		self._setDimension("width", width)
 		self._setDimension("length", length)
 		self._setDimension("height", height)
-		self.grid = zeros((height, length, width))
+		self.grid_3d = zeros((height, length, width))
 		self.__indexWidth = 0
 		self.__indexLength = 0
 		self.__indexHeight = 0
@@ -43,12 +43,12 @@ class DensityMap:
 		return self
 
 	def __next__(self):
-		"""Get next grid element"""
+		"""Get next 3Dgrid element"""
 		if self.__indexHeight == self.height:
 			self.__indexHeight = 0
 			raise StopIteration
 
-		density = self.grid[self.__indexHeight][self.__indexLength][self.__indexWidth]
+		density = self.grid_3d[self.__indexHeight][self.__indexLength][self.__indexWidth]
 		vertex = DensityVertex(self.__indexHeight, self.__indexLength, self.__indexWidth, density)
 		if self.__indexWidth < (self.width - 1):
 			self.__indexWidth += 1
@@ -73,9 +73,16 @@ class DensityMap:
 			raise TypeError(f"Invalid terrain {dim} value: {value}")
 		self.__dict__[dim] = value
 
-	def clear(self):
+	def empty(self):
 		"""Reset density"""
-		for vertex in self:
-			vertex.empty()
+		for layer in range(self.height):
+			self.grid_3d[layer] = 0
 
-
+	def print(self, vertexFormat=False):
+		""""""
+		if vertexFormat:
+			for vertex in self:
+				print(vertex)
+		else:
+			for z in range(self.height):
+				print(self.grid_3d[z], end="\n\n")
