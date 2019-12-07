@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Runs the mod1 program"""
 
+from os import environ
 from sys import argv
 from pathlib import Path
 
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 
 from src import Grid3D, validate_map_file
