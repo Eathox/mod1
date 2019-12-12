@@ -47,8 +47,8 @@ class Terrain:
 		"""Define iterator"""
 		return self.density_map.__iter__()
 
-	def _put_value_in_map(self, x, y, value):
-		""""""
+	def _put_point_in_map(self, x, y, value):
+		"""Set a point in density map"""
 		min_height = abs(MIN_HEIGHT)
 		for layer in range(self.height):
 			if value >= (layer - min_height):
@@ -57,13 +57,13 @@ class Terrain:
 				self.density_map[layer][y][x] = 0
 
 	def _parse_map_content(self, map_content):
-		""""""
+		"""Parse map_content to density map"""
 		y = 0
 		lines = map_content.splitlines()
 		for line in lines:
 			x = 0
 			for value in line.split():
-				self._put_value_in_map(x, y, int(value))
+				self._put_point_in_map(x, y, int(value))
 				x += 1
 			y += 1
 
@@ -72,5 +72,5 @@ class Terrain:
 		self.density_map.empty()
 
 	def print(self, vertexFormat=False):
-		""""""
+		"""Print terrain density map"""
 		self.density_map.print(vertexFormat)

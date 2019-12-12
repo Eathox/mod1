@@ -37,7 +37,7 @@ def _validate_line(line, row, size):
 		raise Exception(f"Line {row} contains {count} entries, expected {size}")
 
 def validate_map_file(map_content):
-	""""""
+	"""Validate entire map file"""
 	try:
 		row = 1
 		lines = map_content.splitlines()

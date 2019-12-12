@@ -85,7 +85,7 @@ class DensityMap:
 			self.grid_3d[layer] = 0
 
 	def print(self, vertexFormat=False):
-		""""""
+		"""Print density map"""
 		if vertexFormat:
 			for vertex in self:
 				print(vertex)
