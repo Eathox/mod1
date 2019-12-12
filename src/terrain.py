@@ -67,6 +67,10 @@ class Terrain:
 				x += 1
 			y += 1
 
+	def fill(self, start=0, end=None, value=1):
+		"""Fill terrain density map with value from start layer to end layer"""
+		self.density_map.fill(start, end, value)
+
 	def empty(self):
 		"""Reset density"""
 		self.density_map.empty()

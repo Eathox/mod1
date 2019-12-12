@@ -79,10 +79,16 @@ class DensityMap:
 			raise TypeError(f"Invalid terrain {dim} value: {value}")
 		self.__dict__[dim] = value
 
+	def fill(self, start=0, end=None, value=1):
+		"""Fill density map with value from start layer to end layer"""
+		if end is None:
+			end = self.height
+		for layer in range(start, end):
+			self.grid_3d[layer] = value
+
 	def empty(self):
 		"""Reset density"""
-		for layer in range(self.height):
-			self.grid_3d[layer] = 0
+		self.fill(value=0)
 
 	def print(self, vertexFormat=False):
 		"""Print density map"""
