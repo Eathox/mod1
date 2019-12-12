@@ -26,12 +26,18 @@ class Terrain:
 		return f"<{name}: {self.size}, {self.height}, {self.padding}>"
 
 	def __getitem__(self, key):
-		"""Get the Terrain key value"""
-		return self.__dict__[key]
+		"""Get the DensityMap key value"""
+		if isinstance(key, str):
+			return self.__dict__[key]
+		else:
+			return self.density_map[key]
 
 	def __setitem__(self, key, value):
-		"""Set the Terrain key to value"""
-		self.__setattr__(key, value)
+		"""Set the DensityMap key to value"""
+		if isinstance(key, str):
+			self.__setattr__(key, value)
+		else:
+			self.density_map[key] = value
 
 	def __setattr__(self, key, value):
 		"""Set the Terrain key to value"""
@@ -41,9 +47,25 @@ class Terrain:
 		"""Define iterator"""
 		return self.density_map.__iter__()
 
+	def _put_value_in_map(self, x, y, value):
+		""""""
+		min_height = abs(MIN_HEIGHT)
+		for layer in range(self.height):
+			if value >= (layer - min_height):
+				self.density_map[layer][y][x] = 1
+			else:
+				self.density_map[layer][y][x] = 0
+
 	def _parse_map_content(self, map_content):
 		""""""
-		pass
+		y = 0
+		lines = map_content.splitlines()
+		for line in lines:
+			x = 0
+			for value in line.split():
+				self._put_value_in_map(x, y, int(value))
+				x += 1
+			y += 1
 
 	def empty(self):
 		"""Reset density"""

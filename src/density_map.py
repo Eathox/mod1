@@ -25,11 +25,17 @@ class DensityMap:
 
 	def __getitem__(self, key):
 		"""Get the DensityMap key value"""
-		return self.__dict__[key]
+		if isinstance(key, str):
+			return self.__dict__[key]
+		else:
+			return self.grid_3d[key]
 
 	def __setitem__(self, key, value):
 		"""Set the DensityMap key to value"""
-		self.__setattr__(key, value)
+		if isinstance(key, str):
+			self.__setattr__(key, value)
+		else:
+			self.grid_3d[key] = value
 
 	def __setattr__(self, key, value):
 		"""Set the DensityMap key to value"""
