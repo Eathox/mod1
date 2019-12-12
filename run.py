@@ -4,6 +4,8 @@
 from os import environ
 from sys import argv
 
+from pyglet import app
+
 from src import Window, Terrain, get_map_content, validate_map_file
 
 USAGE = "<Mapfile>"
@@ -22,5 +24,4 @@ if __name__ == "__main__":
 	terrain = Terrain(map_content)
 
 	window = Window(NAME, FOV)
-	# loop.event_loop_window(terrain)
-	quit()
+	app.run()

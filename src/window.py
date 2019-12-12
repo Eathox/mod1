@@ -15,4 +15,4 @@ class Window:
 	def __init__(self, name, fov):
 		"""Initialise the application window"""
 		gl_config = gl.Config()
-		window.Window(WINDOW_HEIGHT, WINDOW_WIDTH, config=gl_config)
+		window.Window(WINDOW_WIDTH, WINDOW_HEIGHT, config=gl_config)
