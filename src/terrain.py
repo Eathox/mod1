@@ -58,10 +58,10 @@ class Terrain:
 
 	def _parse_map_content(self, map_content):
 		"""Parse map_content to density map"""
-		y = 0
+		y = GRID_PADDING
 		lines = map_content.splitlines()
 		for line in lines:
-			x = 0
+			x = GRID_PADDING
 			for value in line.split():
 				self._put_point_in_map(x, y, int(value))
 				x += 1
