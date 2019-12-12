@@ -7,10 +7,12 @@ from sys import argv
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 
-from src import Terrain, get_map_content, validate_map_file
+from src import Window, Terrain, get_map_content, validate_map_file
 
 USAGE = "<Mapfile>"
 NAME = "Mod1"
+
+FOV = 75
 
 if __name__ == "__main__":
 	"""Read terrain and run simulation"""
@@ -22,7 +24,7 @@ if __name__ == "__main__":
 	validate_map_file(map_content)
 	terrain = Terrain(map_content)
 
-	# window.init_window(terrain)
+	window = Window(NAME, FOV)
 	# loop.event_loop_window(terrain)
 	pygame.quit()
 	quit()
