@@ -4,9 +4,6 @@
 from os import environ
 from sys import argv
 
-environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame
-
 from src import Window, Terrain, get_map_content, validate_map_file
 
 USAGE = "<Mapfile>"
@@ -26,5 +23,4 @@ if __name__ == "__main__":
 
 	window = Window(NAME, FOV)
 	# loop.event_loop_window(terrain)
-	pygame.quit()
 	quit()

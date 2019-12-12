@@ -7,7 +7,7 @@ from setup import Manager
 
 g_dependencies = [
 	"numpy",
-	"pygame",
+	"pyglet",
 	"pyopengl",
 ]
 
