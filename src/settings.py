@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """General program settings"""
 
+#Program
+PROGRAM_USAGE = "<Mapfile>"
+PROGRAM_NAME = "Mod1"
+
 #Window
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -25,3 +29,6 @@ COLOR_TERRAIN_LOW = "#333333"
 COLOR_WATER = "#20406088"
 
 COLOR_WINDOW = "#212121"
+
+#Render
+RENDER_FOV = 75
