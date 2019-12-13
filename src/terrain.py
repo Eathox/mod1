@@ -2,22 +2,19 @@
 """Validation and reading of map files"""
 
 from . density_map import DensityMap
-
-MAX_SIZE = 7
-GRID_PADDING = 2 # Grid border badding
-MIN_HEIGHT = -5
-MAX_HEIGHT = 5
+from . settings import TERRAIN_GRID_PADDING, TERRAIN_MAX_SIZE, \
+	TERRAIN_MAX_HEIGHT, TERRAIN_MIN_HEIGHT
 
 class Terrain(DensityMap):
 	"""Terrain grid"""
 
 	def __init__(self, map_content=None):
 		"""Parse file content in to a terrain grid"""
-		self.padding = GRID_PADDING
-		self.size = MAX_SIZE + (self.padding * 2)
-		self.height = (abs(MIN_HEIGHT) + abs(MAX_HEIGHT)) + 2 # To account for overflow on top and bottom
+		self.padding = TERRAIN_GRID_PADDING
+		self.size = TERRAIN_MAX_SIZE + (self.padding * 2)
+		self.height = (abs(TERRAIN_MIN_HEIGHT) + abs(TERRAIN_MAX_HEIGHT)) + 2 # To account for overflow on top and bottom
 		super(Terrain, self).__init__(self.size, self.size, self.height)
-		self.fill(abs(MIN_HEIGHT))
+		self.fill(abs(TERRAIN_MIN_HEIGHT))
 		if map_content is not None:
 			self._parse_map_content(map_content)
 
@@ -28,7 +25,7 @@ class Terrain(DensityMap):
 
 	def _put_point_in_map(self, x, y, value):
 		"""Set a point in density map"""
-		min_height = abs(MIN_HEIGHT)
+		min_height = abs(TERRAIN_MIN_HEIGHT)
 		for layer in range(self.height):
 			if value >= (layer - min_height):
 				self[layer][y][x] = 1
@@ -37,10 +34,10 @@ class Terrain(DensityMap):
 
 	def _parse_map_content(self, map_content):
 		"""Parse map_content to density map"""
-		y = GRID_PADDING
+		y = TERRAIN_GRID_PADDING
 		lines = map_content.splitlines()
 		for line in lines:
-			x = GRID_PADDING
+			x = TERRAIN_GRID_PADDING
 			for value in line.split():
 				self._put_point_in_map(x, y, int(value))
 				x += 1

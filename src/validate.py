@@ -3,7 +3,7 @@
 
 from re import search
 
-from . terrain import MAX_SIZE, MAX_HEIGHT, MIN_HEIGHT
+from . settings import TERRAIN_MAX_SIZE, TERRAIN_MAX_HEIGHT, TERRAIN_MIN_HEIGHT
 
 def _line_size(line):
 	"""Counts the amount of fields in line"""
@@ -25,12 +25,12 @@ def _validate_line(line, row, size):
 	points = line.split()
 	for point in points:
 		point = int(point)
-		if (count + 1) > MAX_SIZE:
-			raise Exception(f"Line {row} exceeds max size ({MAX_SIZE})")
-		elif point < MIN_HEIGHT:
-			raise Exception(f"Line {row} '{point}' is smaller then min size ({MIN_HEIGHT})")
-		elif point > MAX_HEIGHT:
-			raise Exception(f"Line {row} '{point}' is bigger then max size ({MAX_HEIGHT})")
+		if (count + 1) > TERRAIN_MAX_SIZE:
+			raise Exception(f"Line {row} exceeds max size ({TERRAIN_MAX_SIZE})")
+		elif point < TERRAIN_MIN_HEIGHT:
+			raise Exception(f"Line {row} '{point}' is smaller then min size ({TERRAIN_MIN_HEIGHT})")
+		elif point > TERRAIN_MAX_HEIGHT:
+			raise Exception(f"Line {row} '{point}' is bigger then max size ({TERRAIN_MAX_HEIGHT})")
 		count += 1
 
 	if count != size:
@@ -44,8 +44,8 @@ def validate_map_file(map_content):
 		size = _line_size(lines[0])
 		for line in lines:
 			_validate_line(line, row, size)
-			if row > MAX_SIZE:
-				raise Exception(f"Lines in file exceeds max size ({MAX_SIZE})")
+			if row > TERRAIN_MAX_SIZE:
+				raise Exception(f"Lines in file exceeds max size ({TERRAIN_MAX_SIZE})")
 			if len(line) > 0:
 				row += 1
 	except Exception as error:

@@ -9,15 +9,7 @@ from OpenGL.GL import GL_DEPTH_TEST, GL_BLEND, GL_SRC_ALPHA, \
 from OpenGL.GLU import gluPerspective
 
 from . color import HexColor
-
-WINDOW_WIDTH = 1280
-WINDOW_HEIGHT = 720
-WINDOW_RATIO = (WINDOW_WIDTH / WINDOW_HEIGHT)
-
-FPS_OFFSET_X = 42
-FPS_OFFSET_Y = 21
-FPS_POS_X = (WINDOW_WIDTH - FPS_OFFSET_X)
-FPS_POS_Y = (WINDOW_HEIGHT - FPS_OFFSET_Y)
+from . settings import WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_RATIO, FPS_POS_X, FPS_POS_Y
 
 def init_window(name, fov):
 	"""Initialise the application window"""

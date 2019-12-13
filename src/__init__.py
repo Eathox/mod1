@@ -1,6 +1,6 @@
 from . open import *
 from . color import *
-from . const import *
+from . settings import *
 from . window import *
 from . terrain import *
 from . validate import *

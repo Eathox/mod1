@@ -1,14 +1,5 @@
 #!/usr/bin/env python3
-"""Common constants"""
-
-from pathlib import Path
-
-TERRAIN_COLOR_HIGH = "#604020"
-TERRAIN_COLOR_MID = "#206040"
-TERRAIN_COLOR_LOW = "#333333"
-WATER_COLOR = "#20406088"
-
-BACKGROUND_COLOR = "#212121"
+"""Common constants (Old delete)"""
 
 DRAW_HEIGHT_WEIGHT = 0.6
 DRAW_COLOR_INTENSITY_WEIGHT = 1.65
