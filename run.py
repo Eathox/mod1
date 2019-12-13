@@ -6,7 +6,7 @@ from sys import argv
 
 from pyglet import app
 
-from src import Window, Terrain, get_map_content, validate_map_file
+from src import Terrain, get_map_content, validate_map_file, init_window
 
 USAGE = "<Mapfile>"
 NAME = "Mod1"
@@ -23,5 +23,5 @@ if __name__ == "__main__":
 	validate_map_file(map_content)
 	terrain = Terrain(map_content)
 
-	window = Window(NAME, FOV)
+	window, fps_display = init_window(NAME, FOV)
 	app.run()

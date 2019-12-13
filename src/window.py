@@ -9,10 +9,10 @@ WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
 WINDOW_RATIO = (WINDOW_WIDTH / WINDOW_HEIGHT)
 
-class Window:
-	""""""
-
-	def __init__(self, name, fov):
-		"""Initialise the application window"""
-		gl_config = gl.Config()
-		window.Window(WINDOW_WIDTH, WINDOW_HEIGHT, config=gl_config)
+def init_window(name, fov):
+	"""Initialise the application window"""
+	gl_config = gl.Config()
+	my_window = window.Window(WINDOW_WIDTH, WINDOW_HEIGHT, config=gl_config)
+	my_window.set_caption(name)
+	fps_display = window.FPSDisplay(my_window)
+	return my_window, fps_display
