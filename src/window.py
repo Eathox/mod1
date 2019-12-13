@@ -3,7 +3,7 @@
 
 from os import environ
 
-from pyglet import gl, window, clock
+from pyglet import gl, window, text
 from OpenGL.GL import GL_DEPTH_TEST, GL_BLEND, GL_SRC_ALPHA, \
 	GL_ONE_MINUS_SRC_ALPHA, glRotate, glEnable, glBlendFunc
 from OpenGL.GLU import gluPerspective
@@ -14,7 +14,10 @@ WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
 WINDOW_RATIO = (WINDOW_WIDTH / WINDOW_HEIGHT)
 
-BACKGROUND_COLOR = "#212121"
+FPS_OFFSET_X = 42
+FPS_OFFSET_Y = 21
+FPS_POS_X = (WINDOW_WIDTH - FPS_OFFSET_X)
+FPS_POS_Y = (WINDOW_HEIGHT - FPS_OFFSET_Y)
 
 def init_window(name, fov):
 	"""Initialise the application window"""
@@ -22,6 +25,7 @@ def init_window(name, fov):
 	my_window = window.Window(WINDOW_WIDTH, WINDOW_HEIGHT, config=gl_config)
 	my_window.set_caption(name)
 	fps_display = window.FPSDisplay(my_window)
+	fps_display.label = text.Label("", x=FPS_POS_X, y=FPS_POS_Y)
 
 	gluPerspective(fov, WINDOW_RATIO, 0.1, 1000)
 	glRotate(45, -90, 0, 0)
