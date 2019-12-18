@@ -8,13 +8,14 @@ from . density_map import DensityMap
 from . settings import TERRAIN_GRID_PADDING, TERRAIN_MAX_SIZE, \
 	TERRAIN_MAX_HEIGHT, TERRAIN_MIN_HEIGHT, RENDER_HEIGHT_WEIGHT, \
 	COLOR_TERRAIN_HIGH, COLOR_TERRAIN_MID, COLOR_TERRAIN_LOW, \
-	RENDER_COLOR_INTENSITY_WEIGHT
+	RENDER_COLOR_INTENSITY_WEIGHT, RENDER_TERRAIN_ISO_LEVEL
 
 class Terrain(DensityMap):
 	"""Terrain grid"""
 
-	def __init__(self, map_content=None):
+	def __init__(self, map_content=None, iso_level=RENDER_TERRAIN_ISO_LEVEL):
 		"""Parse file content in to a terrain grid"""
+		self.iso_level = iso_level
 		self.padding = TERRAIN_GRID_PADDING
 		self.size = TERRAIN_MAX_SIZE + (self.padding * 2)
 		self.height = (abs(TERRAIN_MIN_HEIGHT) + abs(TERRAIN_MAX_HEIGHT)) + 2 # To account for overflow on top and bottom
