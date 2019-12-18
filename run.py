@@ -7,7 +7,7 @@ from sys import argv
 from pyglet import app
 
 from src import PROGRAM_USAGE, Terrain, get_map_content, validate_map_file, \
-	init_window, setup_render_loop
+	init_opengl, init_window, setup_render_loop
 
 if __name__ == "__main__":
 	"""Read terrain and run simulation"""
@@ -19,6 +19,7 @@ if __name__ == "__main__":
 	validate_map_file(map_content)
 	terrain = Terrain(map_content)
 
-	window, fps_display = init_window()
+	gl_config = init_opengl()
+	window, fps_display = init_window(gl_config)
 	setup_render_loop(window, fps_display)
 	app.run()
