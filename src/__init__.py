@@ -1,7 +1,6 @@
 from . color import *
 from . density_map import *
 from . density_vertex import *
-from . draw_density_map import *
 from . open import *
 from . opengl import *
 from . render_loop import *
