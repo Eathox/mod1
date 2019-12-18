@@ -1,13 +1,5 @@
 #!/usr/bin/env python3
-"""Common constants (Old delete)"""
-
-DRAW_HEIGHT_WEIGHT = 0.6
-DRAW_COLOR_INTENSITY_WEIGHT = 1.65
-
-WATER_ADD_RATE = 2 # In seconds the water add rate
-WATER_ADD_VOLUME = 1 # Volume to add every WATER_ADD_RATE range 0 to 1
-MARCHING_CUBE_TERRAIN_ISO_LEVEL = 1
-MARCHING_CUBE_WATTER_ISO_LEVEL = 0.5
+"""Marching cubes vertex tables"""
 
 MARCHING_CUBE_EDGE_TABLE = [
     0x0, 0x109, 0x203, 0x30a, 0x406, 0x50f, 0x605, 0x70c,
@@ -43,6 +35,10 @@ MARCHING_CUBE_EDGE_TABLE = [
     0xf00, 0xe09, 0xd03, 0xc0a, 0xb06, 0xa0f, 0x905, 0x80c,
     0x70c, 0x605, 0x50f, 0x406, 0x30a, 0x203, 0x109, 0x0
 ]
+
+MARCHING_CUBE_INDEX_START_TABLE = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3]
+MARCHING_CUBE_INDEX_END_TABLE = [1, 2, 3, 0, 5, 6, 7, 4, 4, 5, 6, 7]
+
 MARCHING_CUBE_TRIANGLE_TABLE = [
     [],
     [0, 8, 3],
@@ -301,5 +297,3 @@ MARCHING_CUBE_TRIANGLE_TABLE = [
     [0, 3, 8],
     []
 ]
-MARCHING_CUBE_INDEX_START_TABLE = [0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3]
-MARCHING_CUBE_INDEX_END_TABLE = [1, 2, 3, 0, 5, 6, 7, 4, 4, 5, 6, 7]

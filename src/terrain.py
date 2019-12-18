@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 """Validation and reading of map files"""
 
+from OpenGL.GL import glColor3fv, glVertex3f
+
+from . color import HexColor
 from . density_map import DensityMap
 from . settings import TERRAIN_GRID_PADDING, TERRAIN_MAX_SIZE, \
-	TERRAIN_MAX_HEIGHT, TERRAIN_MIN_HEIGHT
+	TERRAIN_MAX_HEIGHT, TERRAIN_MIN_HEIGHT, RENDER_HEIGHT_WEIGHT, \
+	COLOR_TERRAIN_HIGH, COLOR_TERRAIN_MID, COLOR_TERRAIN_LOW, \
+	RENDER_COLOR_INTENSITY_WEIGHT
 
 class Terrain(DensityMap):
 	"""Terrain grid"""
@@ -42,3 +47,26 @@ class Terrain(DensityMap):
 				self._put_point_in_map(x, y, int(value))
 				x += 1
 			y += 1
+
+	def _draw_vertex(self, vertex):
+		"""Draws point with terrain height color"""
+		if vertex.z < 0 and vertex.z <= (TERRAIN_MIN_HEIGHT / 2):
+			color = COLOR_TERRAIN_LOW
+		elif vertex.z > 0 and vertex.z >= (TERRAIN_MAX_HEIGHT / 2):
+			color = COLOR_TERRAIN_HIGH
+		else:
+			color = COLOR_TERRAIN_MID
+
+		if vertex.z < 0:
+			minium_intensity = TERRAIN_MIN_HEIGHT / (TERRAIN_MIN_HEIGHT * RENDER_COLOR_INTENSITY_WEIGHT)
+			intensity = (vertex.z / ((TERRAIN_MIN_HEIGHT - 1) * RENDER_COLOR_INTENSITY_WEIGHT))
+		else:
+			minium_intensity = TERRAIN_MAX_HEIGHT / (TERRAIN_MAX_HEIGHT * RENDER_COLOR_INTENSITY_WEIGHT)
+			intensity = (vertex.z / ((TERRAIN_MAX_HEIGHT - 1) * RENDER_COLOR_INTENSITY_WEIGHT))
+		intensity += minium_intensity
+
+		color = HexColor(color)
+		color *= intensity
+
+		glColor3fv(color.array())
+		glVertex3f(vertex.x, vertex.y, vertex.z * RENDER_HEIGHT_WEIGHT)

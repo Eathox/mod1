@@ -21,5 +21,5 @@ if __name__ == "__main__":
 
 	gl_config = init_opengl()
 	window, fps_display = init_window(gl_config)
-	setup_render_loop(window, fps_display)
+	setup_render_loop(window, fps_display, terrain)
 	app.run()

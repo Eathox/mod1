@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """General program settings"""
 
+from . marching_cube_tables import *
+
 #Program
 PROGRAM_USAGE = "<Mapfile>"
 PROGRAM_NAME = "Mod1"
@@ -32,3 +34,13 @@ COLOR_WINDOW = "#212121"
 
 #Render
 RENDER_FOV = 75
+RENDER_HEIGHT_WEIGHT = 0.6
+RENDER_COLOR_INTENSITY_WEIGHT = 1.65
+
+#Water
+WATER_ADD_RATE = 2 # In seconds the water add rate
+WATER_ADD_VOLUME = 1 # Volume to add every WATER_ADD_RATE range 0 to 1
+
+#Marching cubes
+MARCHING_CUBE_TERRAIN_ISO_LEVEL = 1
+MARCHING_CUBE_WATTER_ISO_LEVEL = 0.5
