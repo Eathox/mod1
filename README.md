@@ -1,13 +1,13 @@
 # Mod1
 
-A simple a water flow simulator i'm working on in my free time to get more familiar with python\
+A simple a water flow simulator I'm working on in my free time to get more familiar with python\
 All the rendering is done using the [marching cubes algorithm](https://en.wikipedia.org/wiki/Marching_cubes)
 ![Screenshot](examplePicture.png)
 
 ## Usage
 
 Run the program by: `python3 run.py <Mapfile>`\
-Example mapfiles are present in the folder `maps`
+Example map files are present in the folder `maps`
 
 ## Controls
 
