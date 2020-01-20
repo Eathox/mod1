@@ -8,7 +8,7 @@ def	_open_map_file(file_name):
 	"""Open mod1 file"""
 	map_file = Path(file_name)
 	if len(map_file.suffix) == 0:
-		map_file = Path(file_name + ".mod1")
+		map_file = Path("".join([file_name, ".mod1"]))
 	return map_file
 
 def get_map_content(file_name):
