@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Defintion of library"""
 
-from . pip import run_pip
+from . pip import *
 
 class Library:
 	"""A single library dependency"""
@@ -11,17 +11,17 @@ class Library:
 		self.name = name
 		self.pip = pip
 
-	def __str__(self):
+	def __str__(self) -> str:
 		"""Return library name"""
 		name = self.__class__.__name__
 		return f"<{name}: {self.name}>"
 
-	def library_installed(self):
+	def installed(self) -> bool:
 		"""Checks if the library is installed using shell"""
 		arguments = ["show", self.name]
 		return run_pip(self.pip, arguments, True)
 
-	def install_library(self):
+	def install(self) -> bool:
 		"""Installs library"""
 		print(f"Installing {self.name}")
 		arguments = ["install", self.name]
@@ -31,9 +31,9 @@ class Library:
 			return False
 		return success
 
-	def uninstall_library(self):
+	def uninstall(self) -> (bool, bool):
 		"""Uninstalls library"""
 		arguments = ["uninstall", self.name]
 		success = run_pip(self.pip, arguments)
-		removed = self.library_installed() == False
+		removed = (self.installed() == False)
 		return success, removed
